@@ -1,31 +1,23 @@
-import React, { Component } from "react";
+import { useContext } from "react";
 import ThemeContext from "./ThemeContext";
 
-class ListItem extends Component {
-  onClickHandler = () => {
-    this.props.onChange(this.props.name);
+function ListItem(props) {
+  const themeData = useContext(ThemeContext);
+
+  const onClickHandler = () => {
+    props.onChange(props.name);
   };
 
-  render() {
-    return (
-      <ThemeContext.Consumer>
-        {({ theme }) => {
-          return (
-            <li
-              onClick={this.onClickHandler}
-              className={`px-6 py-4 rounded-lg shadow hover:cursor-pointer transition ${
-                this.props.active ? "bg-slate-800 text-white" : "bg-white"
-              } ${theme === "light" ? "bg-white" : "bg-blue-500 text-white"}`}
-            >
-              {this.props.name}
-            </li>
-          );
-        }}
-      </ThemeContext.Consumer>
-    );
-  }
+  return (
+    <li
+      onClick={onClickHandler}
+      className={`px-6 py-4 rounded-lg shadow hover:cursor-pointer transition ${
+        props.active ? "bg-slate-800 text-white" : "bg-white"
+      }`}
+    >
+      {props.name} ({themeData.theme})
+    </li>
+  );
 }
-
-// <ListItem name="iPhone" />
 
 export default ListItem;
